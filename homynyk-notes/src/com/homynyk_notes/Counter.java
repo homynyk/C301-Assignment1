@@ -1,32 +1,28 @@
 package com.homynyk_notes;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.Date;
 
 public class Counter implements Serializable{
 	
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
-	//private static final long serialVersionUID = 6529685098267757690L;
 
 	private String name;
 	private Integer value;
-	//private static final long serialVersionUID = 0L;
+	private ArrayList<Date> date_list;
+	
+	public Counter() {
+		super();
+	}
 	
 	public Counter(String name, Integer value) {
 		super();
 		this.name = name;
 		this.value = value;
+		this.date_list = new ArrayList<Date>();
 	}
 	
-	public Counter() {
-		super();
-		this.name = "something";
-		this.value = 0;
-		// TODO Auto-generated constructor stub
-	}
-
 	public String getName() {
 		return name;
 	}
@@ -44,8 +40,18 @@ public class Counter implements Serializable{
 	public void setValue(Integer value) {
 		this.value = value;
 	}
-
 	
+	public void addDate(Date new_date){
+		if (date_list != null){
+			date_list.add(new_date);
+			//System.out.println("ADDING MORE DATES");
+		}
+		else {
+			this.date_list = new ArrayList<Date>();
+			date_list.add(new_date);
+			//System.out.println("ADD DATE TO NEW LIST");
+		}
+	}
 	
 }
 
