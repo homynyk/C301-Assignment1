@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">homynyk-notes</string>
+    <string name="action_settings">Settings</string>
+    <string name="new_counter">New</string>
+    <string name ="counter_title">List of Current Counters</string>
+    <string name="enter_name">Please enter name for counter: </string>
+	<string name="save">Save</string>
+	    
+
+
+</resources>
