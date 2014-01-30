@@ -15,18 +15,33 @@ public class CounterListStorage extends Activity {
 
 	public static ArrayList<Counter> loadFromFile(Context context) {
 		try {
-			//System.out.println("Starting file LOAD");
+			// System.out.println("Starting file LOAD");
 			FileInputStream fis = context.openFileInput(FILENAME);
-			//System.out.println("OPENED FILE");
+			// System.out.println("OPENED FILE");
 			ObjectInputStream in = new ObjectInputStream(fis);
-			//System.out.println("OBJECT INPUT STREAM!!");
+			// System.out.println("OBJECT INPUT STREAM!!");
 			counters = (ArrayList<Counter>) in.readObject();
-			//System.out.println("READ OBJECTS!!!");
+			// System.out.println("READ OBJECTS!!!");
 			in.close();
-			return counters;
-			//System.out.println("Done loading.");
-			// Closing fis causes "SPAN_EXCLUSIVE_EXCLUSIVE spans cannot have a zero length"
-			//fis.close();
+			ArrayList<Counter> ordered_counters = new ArrayList<Counter>();
+			Counter max_counter = new Counter();
+			while (!counters.isEmpty()) {
+				int min_i = 0;
+				max_counter = counters.get(0);
+				for (int i = 0; i < counters.size(); i++) {
+					if (counters.get(i).getValue() > max_counter.getValue()) {
+						max_counter = counters.get(i);
+						min_i = i;
+					}
+				}
+				counters.remove(min_i);
+				ordered_counters.add(max_counter);
+			}
+			return ordered_counters;
+			// System.out.println("Done loading.");
+			// Closing fis causes
+			// "SPAN_EXCLUSIVE_EXCLUSIVE spans cannot have a zero length"
+			// fis.close();
 		} catch (FileNotFoundException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -42,13 +57,13 @@ public class CounterListStorage extends Activity {
 	public static void saveInFile(Context context, ArrayList<Counter> counters) {
 		try {
 			// Serialize data object to a file
-			//System.out.println("Started Saving file....");
-			//System.out.println("START SAVE FUNC!!");
-			//System.out.println("CREATE NEW COUNTER");
-			
-			//counters.add(counter);
-			
-			//System.out.println("ADD COUNTER TO LIST!!");
+			// System.out.println("Started Saving file....");
+			// System.out.println("START SAVE FUNC!!");
+			// System.out.println("CREATE NEW COUNTER");
+
+			// counters.add(counter);
+
+			// System.out.println("ADD COUNTER TO LIST!!");
 			FileOutputStream fos = context.openFileOutput(FILENAME,
 					Context.MODE_PRIVATE);
 			BufferedOutputStream bos = new BufferedOutputStream(fos);
@@ -56,7 +71,7 @@ public class CounterListStorage extends Activity {
 			out.flush();
 			out.writeObject(counters);
 			out.close();
-			//System.out.println("Done saving.");
+			// System.out.println("Done saving.");
 			fos.close();
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();

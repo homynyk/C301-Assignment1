@@ -14,7 +14,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 public class CounterView extends Activity {
-	Button add, delete;
+	Button add, edit;
 	int index;
 	ArrayList<Counter> saved_counters;
 	Counter selected_counter;
@@ -23,7 +23,7 @@ public class CounterView extends Activity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.counter_view);
 		add = (Button) findViewById(R.id.bAdd);
-		delete = (Button) findViewById(R.id.bDelete);
+		edit = (Button) findViewById(R.id.bEdit);
 
 		// Get index of selected counter
 		Intent intent;
@@ -55,7 +55,7 @@ public class CounterView extends Activity {
 		});
 		
 		// Remove counter and return to main screen when delete button is pushed
-		delete.setOnClickListener(new View.OnClickListener() {
+		edit.setOnClickListener(new View.OnClickListener() {
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
 				saved_counters.remove(index);
